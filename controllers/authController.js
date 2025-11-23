@@ -42,8 +42,8 @@ export const register = async (req, res, next) => {
         },
         process.env.JWT_SECRET,
         { expiresIn: process.env.JWT_TOKEN_EXPIRY }
-      );
-  
+      );   
+       
       return res.status(201).json({
         status: true,
         message: "Registered successfully!",

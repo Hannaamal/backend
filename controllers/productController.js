@@ -84,7 +84,7 @@ export const createProduct = async (req, res, next) => {
       return next(new HttpError("Invalid data inputs passed", 400));
     }else{
       const {userRole} = req.userData
-      const imagePath = req.file ? req.file.path : null;
+      const imagePath = req.file ? req.file.path :  "uploads/default.png";
   
       // console.log(userRole)
   
@@ -135,10 +135,12 @@ export const updateProduct = async (req, res, next) => {
   try {
      const errors = validationResult(req)
     if(!errors.isEmpty()){
+      console.error(errors)
       return next(new HttpError("Invalid data inputs passed", 400));
     }else{
     const {userRole} = req.userData
     const {id} = req.params 
+    const imagePath = req.file ? req.file.path : null;
     if (userRole !== "admin") {
       return next(new HttpError("User not authorized", 401))
     } else{
@@ -149,10 +151,16 @@ export const updateProduct = async (req, res, next) => {
           description, 
           price, 
           stock, 
-          image, 
+          image:image,  // req.file ? req.file.path : image || "uploads/default.png"
           brand, 
           category 
         }
+        
+        // ⭐ If new image exists, update image field
+    if (imagePath) {
+      updatedData.image = imagePath;
+    }
+
         const product = await Product.findByIdAndUpdate(
           id,
           updatedData,
