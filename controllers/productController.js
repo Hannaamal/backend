@@ -5,7 +5,7 @@ import Product from "../model/product.js";
 // Get all products
 export const getProducts = async (req, res, next) => {
   try {
-    const { limit = 3, skip = 0, category = "All", q = "" } = req.query;
+    const { limit = 9, skip = 0, category = "All", q = "" } = req.query;
     const limitNum = parseInt(limit);
     const skipNum = parseInt(skip);
 

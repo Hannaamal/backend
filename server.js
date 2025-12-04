@@ -19,7 +19,10 @@ connectDB()
 
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({
+ origin: 'http://localhost:3000', // allow your frontend
+  credentials: true,               // allow cookies/auth headers
+}));
 
 app.use('/uploads', express.static('uploads'));
 
@@ -38,3 +41,4 @@ app.use((error,req, res,next) => {
 app.listen(process.env.PORT, () => {
     console.log(`server running at http://localhost:${process.env.PORT}`);
 })
+

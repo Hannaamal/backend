@@ -7,9 +7,9 @@ const userAuthCheck = async (req, res, next) => {
     return next();
   }
   try {
-    const token = req.headers.authorization.split(" ")[1];
-   
+   const token = req.cookies.auth_token;
     if (! token) {
+      console.error(token);
         return next(new HttpError("Authentication Failed", 403))
     } else {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
@@ -28,8 +28,10 @@ const userAuthCheck = async (req, res, next) => {
 }
 
 } catch (err) {
-    console.log(err)
+  
+  
     return next(new HttpError("Authentication failed....", 403));
+    
   }
 };
 

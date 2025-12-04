@@ -23,7 +23,7 @@ const createupdatevalidationrule = [
   check("brand").notEmpty().withMessage(" brand,  is required"),
   check("category").notEmpty().withMessage("category is required") .isIn(["All","fragrances","beauty","furniture","groceries","kitchen-accessories"]).withMessage("Invalid category selected")
         
- ];
+ ]; 
 
 productRouter.post('/product' , upload.single('image'), createupdatevalidationrule, createProduct)
 

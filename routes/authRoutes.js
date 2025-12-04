@@ -16,4 +16,5 @@ authRouter.post("/login",[
     check("password").notEmpty().withMessage("Password is required").isLength({ min: 5 }).withMessage("Password must be at least 5 characters"),
 ], login);
 
+
 export default authRouter;
