@@ -43,6 +43,19 @@ export const register = async (req, res, next) => {
         process.env.JWT_SECRET,
         { expiresIn: process.env.JWT_TOKEN_EXPIRY }
       );
+      res.cookie("auth_token", token, {
+        httpOnly: false,
+        secure: false, // true in production
+        sameSite: "lax",
+        path: "/",
+      });
+
+      res.cookie("role", newUser.role, {
+        httpOnly: false, // frontend needs to read it
+        secure: false, // true in production
+        sameSite: "lax",
+        path: "/",
+      });
 
       return res.status(201).json({
         status: true,
@@ -95,7 +108,20 @@ export const login = async (req, res, next) => {
         process.env.JWT_SECRET,
         { expiresIn: process.env.JWT_TOKEN_EXPIRY }
       );
-    
+      res.cookie("auth_token", token, {
+        httpOnly: false,
+        secure: false, // true in production
+        sameSite: "lax",
+        path: "/",
+      });
+
+      res.cookie("role", user.role, {
+        httpOnly: false, // frontend needs to read it
+        secure: false, // true in production
+        sameSite: "lax",
+        path: "/",
+      });
+
       return res.status(200).json({
         status: true,
         message: "Login successful",

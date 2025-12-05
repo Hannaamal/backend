@@ -7,7 +7,8 @@ const userAuthCheck = async (req, res, next) => {
     return next();
   }
   try {
-   const token = req.cookies.auth_token;
+   req.cookies.auth_token ||
+    req.headers.authorization?.split(" ")[1];
     if (! token) {
       console.error(token);
         return next(new HttpError("Authentication Failed", 403))
