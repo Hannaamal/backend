@@ -5,6 +5,7 @@ import Product from "../model/product.js";
 export const addToCart = async (req, res,next) => {
   try {
     const { product_id, quantity = 1 } = req.body;
+     console.log("req.body:", req.body);
 
     if (!product_id) {
       return res.status(400).json({ message: "Product ID is required" });
@@ -57,6 +58,7 @@ export const addToCart = async (req, res,next) => {
 export const removeFromCart = async (req, res,next) => {
   try {
     const { id } = req.params;
+   
 
     const cartItem = await Cart.findById(id);
     if (!cartItem) {
